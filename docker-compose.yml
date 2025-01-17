@@ -1,0 +1,42 @@
+version: "3.8"
+
+services:
+    # Serviço para o Laravel (Backend)
+    backend:
+        build:
+            context: ./laravel-backend
+            dockerfile: Dockerfile
+        container_name: laravel-app
+        ports:
+            - "8000:8000"
+        volumes:
+            - ./laravel-backend:/var/www/html
+        environment:
+            APP_ENV: local
+            APP_DEBUG: "true"
+            APP_KEY: base64:randomKeyHere
+            DB_CONNECTION: mysql
+            DB_HOST: db
+            DB_PORT: 3306
+            DB_DATABASE: laravel
+            DB_USERNAME: root
+            DB_PASSWORD: root
+        depends_on:
+            - db
+
+    # Banco de Dados
+    db:
+        image: mysql:8.0
+        container_name: mysql-db
+        ports:
+            - "3306:3306"
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: laravel
+            MYSQL_USER: root
+            MYSQL_PASSWORD: root
+        volumes:
+            - db_data:/var/lib/mysql
+
+volumes:
+    db_data:
