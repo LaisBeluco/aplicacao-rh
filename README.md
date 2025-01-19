@@ -6,7 +6,7 @@ Este projeto é uma aplicação full-stack utilizando **Laravel 10** para o back
 
 -   **Backend**: Laravel 10 (PHP 8.2)
 -   **Frontend**: Nuxt.js (Vue.js 3)
--   **Banco de dados**: MySQL 8.0
+-   **Banco de dados**: Postgres 8.0
 -   **Ambiente**: Docker
 
 ## Pré-requisitos
@@ -54,22 +54,42 @@ cd aplicacao-rh #Ou o nome que foi colocado por você
 Dentro da pasta do projeto, execute o seguinte comando para subir os containers do Docker:
 
 ```bash
-docker-compose up --build
+docker compose up --build
 ```
 
-Este comando irá:
+```bash
+docker exec -it aplicacao-rh-php-1 mv .env.example .env
+```
+
+```bash
+docker exec -it aplicacao-rh-php-1 php artisan key:generate
+```
+
+```bash
+docker exec -it aplicacao-rh-php-1 composer install
+```
+
+```bash
+docker exec -it aplicacao-rh-php-1 chmod 755 . -R
+```
+
+```bash
+docker exec -it aplicacao-rh-php-1 chmod 777 storage public bootstrap -R
+```
+
+Estes comando irão:
 
 -   Construir as imagens Docker para o backend (Laravel) e frontend (Nuxt.js).
--   Subir os containers do MySQL, Laravel e Nuxt.
+-   Subir os containers do Postgres, Laravel e Nuxt.
 
 ### Passo 3: Acessar o Projeto
 
--   Backend (Laravel): Acesse o backend em http://localhost:8000.
--   Frontend (Nuxt): Acesse o frontend em http://localhost:3000.
+-   Backend (Laravel): Acesse o backend em http://localhost:8001.
+-   Frontend (Nuxt): Acesse o frontend em http://localhost:8000.
 
 ### Passo 4: Usar o Banco de Dados
 
-O MySQL estará rodando no container com a porta 3306. Se você precisar conectar a um cliente de banco de dados local, use a porta 3306 ou a porta configurada no arquivo docker-compose.yml.
+O Postgres estará rodando no container com a porta 5432. Se você precisar conectar a um cliente de banco de dados local, use a porta 5432 ou a porta configurada no arquivo docker-compose.yml.
 
 ```
 Usuário: root
@@ -81,43 +101,13 @@ Banco de dados: laravel
 
 ### Variáveis de Ambiente do Laravel
 
-No diretório laravel-backend, copie o arquivo .env.example para .env e defina as variáveis de ambiente, especialmente a configuração do banco de dados:
-
-```bash
-cp .env.example .env
-```
-
-Certifique-se de que o banco de dados esteja configurado para se conectar ao container MySQL com as credenciais fornecidas no docker-compose.yml.
+Certifique-se de que o banco de dados esteja configurado para se conectar ao container Postgres com as credenciais fornecidas no docker-compose.yml.
 
 ```env
-DB_CONNECTION=mysql
-DB_HOST=db
-DB_PORT=3306
+DB_CONNECTION=pgsql
+DB_HOST=127.0.0.1
+DB_PORT=5432
 DB_DATABASE=laravel
 DB_USERNAME=root
 DB_PASSWORD=root
-```
-
-### Gerar a chave do Laravel
-
-Dentro do container do backend, gere a chave da aplicação Laravel:
-
-```bash
-docker exec -it laravel-app bash
-php artisan key:generate
-exit
-```
-
-## Parar os Containers
-
-Para parar os containers em execução, execute:
-
-```bash
-docker-compose down
-```
-
-Isso irá parar e remover os containers, mas os volumes persistirão. Para remover os volumes também, use:
-
-```bash
-docker-compose down -v
 ```

@@ -1,40 +1,53 @@
-version: "3.8"
+version: '3'
+
+######### Services ###################################
 
 services:
-    postgres:
-        image: postgres
-        restart: always
-        ports:
-            - "5432:5432"
-        environment:
-            - DATABASE_HOST=127.0.0.1
-            - POSTGRES_USER=root
-            - POSTGRES_PASSWORD=root
-            - POSTGRES_DB=root
+  # Server container
+  nginx:
+    build:
+      context: docker/nginx
+      dockerfile: Dockerfile
+    volumes:
+      - ./:/var/www
+      - ./docker/nginx/logs:/var/log/nginx
+    ports:
+      # Nuxt port
+      #- 8080:80
+      # Laravel port
+      - 8001:81
+    links:
+      - php
 
-    # Serviço para o Laravel (Backend)
-    backend:
-        build:
-            context: ./laravel-backend
-            dockerfile: Dockerfile
-        container_name: laravel-app
-        ports:
-            - "8000:8000"
-        volumes:
-            - ./laravel-backend:/var/www/html
-        environment:
-            APP_ENV: local
-            APP_DEBUG: "true"
-            APP_KEY: base64:randomKeyHere
-            DB_CONNECTION: pgsql
-            DB_HOST: db
-            DB_PORT: 5432
-            DB_DATABASE: root
-            DB_USERNAME: root
-            DB_PASSWORD: root
-        depends_on:
-            - postgres
+  # PHP FastCGI Process Manager container
+  php:
+    build:
+      context: docker/api
+      dockerfile: Dockerfile
+    volumes:
+      - ./laravel-backend:/var/www/api
+    environment:
+      # If you down want to use xDebug, set remote_enable=0
+      XDEBUG_CONFIG: "remote_enable=0"
+      PHP_IDE_CONFIG: "serverName=Docker"
+    links:
+      - postgres
+
+  # PostgreSQL database container
+  postgres:
+    image: postgres:13
+    volumes:
+      # Database volume
+      - database:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_DB=laravel
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=root
+
+######### Volumes ###################################
 
 volumes:
-    pgsql_data:
-        driver: local
+  database:
+    driver: local
