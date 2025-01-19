@@ -20,7 +20,7 @@ Este projeto é uma aplicação full-stack utilizando **Laravel 10** para o back
 
 ## Estrutura do Projeto
 
-### laravel-backend/ # Backend em Laravel
+### api / # Backend em Laravel
 
 -   Dockerfile # Dockerfile para o Laravel
 -   .env # Arquivo de configuração do ambiente

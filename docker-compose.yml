@@ -18,6 +18,7 @@ services:
       - 8001:81
     links:
       - php
+      - client
 
   # PHP FastCGI Process Manager container
   php:
@@ -25,7 +26,7 @@ services:
       context: docker/api
       dockerfile: Dockerfile
     volumes:
-      - ./laravel-backend:/var/www/api
+      - ./api:/var/www/api
     environment:
       # If you down want to use xDebug, set remote_enable=0
       XDEBUG_CONFIG: "remote_enable=0"
@@ -45,6 +46,14 @@ services:
       - POSTGRES_DB=laravel
       - POSTGRES_USER=root
       - POSTGRES_PASSWORD=root
+
+# Client container
+  client:
+    build:
+      context: docker/client
+      dockerfile: Dockerfile
+    volumes:
+      - ./client:/var/www/client
 
 ######### Volumes ###################################
 
