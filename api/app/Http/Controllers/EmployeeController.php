@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\EmployeeRequest;
+use Illuminate\Http\Request;
 use App\Models\Employee;
+use App\Http\Requests\EmployeeRequest;
 
 class EmployeeController extends Controller
 {
@@ -15,13 +16,6 @@ class EmployeeController extends Controller
 
     public function create(EmployeeRequest $request)
     {
-        $input = $request;
-        dd($input);
-        $employee = app(Employee::class);
         
-        $employee->create([
-            'full_name' => $input['full_name'],
-            'code' => $input['code'],
-        ]);
     }
 }
