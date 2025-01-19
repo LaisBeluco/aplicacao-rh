@@ -1,6 +1,17 @@
 version: "3.8"
 
 services:
+    postgres:
+        image: postgres
+        restart: always
+        ports:
+            - "5432:5432"
+        environment:
+            - DATABASE_HOST=127.0.0.1
+            - POSTGRES_USER=root
+            - POSTGRES_PASSWORD=root
+            - POSTGRES_DB=root
+
     # Serviço para o Laravel (Backend)
     backend:
         build:
@@ -15,28 +26,15 @@ services:
             APP_ENV: local
             APP_DEBUG: "true"
             APP_KEY: base64:randomKeyHere
-            DB_CONNECTION: mysql
+            DB_CONNECTION: pgsql
             DB_HOST: db
-            DB_PORT: 3306
-            DB_DATABASE: laravel
+            DB_PORT: 5432
+            DB_DATABASE: root
             DB_USERNAME: root
             DB_PASSWORD: root
         depends_on:
-            - db
-
-    # Banco de Dados
-    db:
-        image: mysql:8.0
-        container_name: mysql-db
-        ports:
-            - "3306:3306"
-        environment:
-            MYSQL_ROOT_PASSWORD: root
-            MYSQL_DATABASE: laravel
-            MYSQL_USER: root
-            MYSQL_PASSWORD: root
-        volumes:
-            - db_data:/var/lib/mysql
+            - postgres
 
 volumes:
-    db_data:
+    pgsql_data:
+        driver: local

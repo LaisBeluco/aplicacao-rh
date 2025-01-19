@@ -15,6 +15,4 @@ use App\Http\Controllers\UserController;
 |
 */
 
-Route::middleware('auth:sanctum')->group(function () {
-    Route::get('/user', [UserController::class, 'show']);
-});
+Route::get('/user', [UserController::class, 'show']);

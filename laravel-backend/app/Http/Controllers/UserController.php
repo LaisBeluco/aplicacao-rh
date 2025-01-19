@@ -8,6 +8,5 @@ class UserController extends Controller
 {
     public function show()
     {
-        dd("pau no cu");
     }
 }
