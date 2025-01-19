@@ -2,12 +2,11 @@ version: "3.8"
 
 services:
     postgres:
-        image: postgres
+        image: postgres:13
         restart: always
         ports:
             - "5432:5432"
         environment:
-            - DATABASE_HOST=127.0.0.1
             - POSTGRES_USER=root
             - POSTGRES_PASSWORD=root
             - POSTGRES_DB=root
@@ -27,7 +26,6 @@ services:
             APP_DEBUG: "true"
             APP_KEY: base64:randomKeyHere
             DB_CONNECTION: pgsql
-            DB_HOST: db
             DB_PORT: 5432
             DB_DATABASE: root
             DB_USERNAME: root

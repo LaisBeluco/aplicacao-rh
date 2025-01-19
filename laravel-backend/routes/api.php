@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\EmployeeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,4 +15,5 @@ use App\Http\Controllers\UserController;
 |
 */
 
-Route::get('/user', [UserController::class, 'show']);
+Route::get('/index', [EmployeeController::class, 'index']);
+Route::post('/create', [EmployeeController::class, 'create']);
