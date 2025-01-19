@@ -13,7 +13,7 @@ services:
       - ./docker/nginx/logs:/var/log/nginx
     ports:
       # Nuxt port
-      #- 8080:80
+      - 8000:80
       # Laravel port
       - 8001:81
     links:
