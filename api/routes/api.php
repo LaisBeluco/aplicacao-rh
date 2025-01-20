@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EmployeeController;
 
@@ -15,5 +14,7 @@ use App\Http\Controllers\EmployeeController;
 |
 */
 
-Route::get('/index', [EmployeeController::class, 'index']);
-Route::post('/create', [EmployeeController::class, 'create']);
+Route::get('/employees', [EmployeeController::class, 'index']);
+Route::post('/employees', [EmployeeController::class, 'create']);
+Route::post('/employees/{id}', [EmployeeController::class, 'update']);
+Route::delete('employees/{id}', [EmployeeController::class, 'delete']);

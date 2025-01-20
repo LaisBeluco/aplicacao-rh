@@ -19,8 +19,8 @@ class EmployeeRequest extends ApiFormRequest
             'code' => 'required|max:10',
             'full_name' => 'required|max:255',
             'user_name' => 'required|max:55',
-            'document' => 'required|min:11|max:11',
-            'date_birth' => 'required|numeric',
+            'document' => 'required|min:11|max:11|unique:employees,document,' . $this->id,
+            'date_birth' => 'required|date',
             'mother_name' => 'required|max:255',
             'father_name' => 'max:255',
             'role' => 'required|max:55'
