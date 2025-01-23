@@ -1,4 +1,4 @@
-version: '3'
+version: '3.8'
 
 ######### Services ###################################
 
@@ -16,7 +16,7 @@ services:
       - 8000:80
       # Laravel port
       - 8001:81
-    links:
+    depends_on:
       - php
       - client
 
@@ -31,7 +31,7 @@ services:
       # If you down want to use xDebug, set remote_enable=0
       XDEBUG_CONFIG: "remote_enable=0"
       PHP_IDE_CONFIG: "serverName=Docker"
-    links:
+    depends_on:
       - postgres
 
   # PostgreSQL database container

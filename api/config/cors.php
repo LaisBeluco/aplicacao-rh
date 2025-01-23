@@ -17,7 +17,7 @@ return [
 
     'paths' => ['api/*', 'sanctum/csrf-cookie'],
 
-    'allowed_origins' => ['http://localhost:3000'], // Domínio do Nuxt
+    'allowed_origins' => ['*'], // Domínio do Nuxt
 
     'allowed_methods' => ['*'],
 
