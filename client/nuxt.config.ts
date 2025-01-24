@@ -13,4 +13,5 @@ export default defineNuxtConfig({
      */
     componentDir: "./components/ui",
   },
+  plugins: ['~/plugins/maska.ts']
 })

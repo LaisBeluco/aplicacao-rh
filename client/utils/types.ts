@@ -4,9 +4,8 @@ export interface EmployeeProps {
      full_name: string;
      user_name: string;
      document: string;
-     birth_date: string;
+     date_birth: string;
      mother_name: string;
-     father_name?: number;
-     created_at: string;
-     updated_at: string;
+     father_name?: string;
+     role: string;
 }
