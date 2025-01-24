@@ -11,7 +11,7 @@ class EmployeeController extends Controller
 
     public function index()
     {
-        $employees = DB::table('employees')->simplePaginate(10);
+        $employees = Employee::paginate(10); 
 
         return response()->json(['employees' => $employees], 200);
     }

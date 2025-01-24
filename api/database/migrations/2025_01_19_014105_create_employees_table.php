@@ -16,13 +16,15 @@ return new class extends Migration
             $table->string('code');
             $table->string('full_name');
             $table->string('user_name');
-            $table->string('document')->unique();
+            $table->string('document');
             $table->date('date_birth');
             $table->string('mother_name');
             $table->string('father_name')->nullable();
             $table->string('role');
             $table->softDeletes();
             $table->timestamps();
+
+            $table->unique(['document', 'deleted_at']);
         });
     }
 

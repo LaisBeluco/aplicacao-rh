@@ -1,5 +1,5 @@
 export interface EmployeeProps {
-     id: number;
+     id?: number;
      code: string;
      full_name: string;
      user_name: string;
