@@ -212,7 +212,7 @@ const validateForm = () => {
       <SheetFooter>
         <Button type="submit" @click="handleSubmit">
           <template v-if="isSubmitting">Saving...</template>
-          <template v-else> {{ mode }} Mudanças </template>
+          <template v-else> Salvar </template>
         </Button>
       </SheetFooter>
     </SheetContent>

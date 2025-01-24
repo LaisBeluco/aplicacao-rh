@@ -77,11 +77,6 @@ docker exec -it aplicacao-rh-php-1 chmod 755 . -R
 docker exec -it aplicacao-rh-php-1 chmod 777 storage public bootstrap -R
 ```
 
-Estes comando irão:
-
--   Construir as imagens Docker para o backend (Laravel) e frontend (Nuxt.js).
--   Subir os containers do Postgres, Laravel e Nuxt.
-
 ### Passo 3: Acessar o Projeto
 
 -   Backend (Laravel): Acesse o backend em http://localhost:8001.
